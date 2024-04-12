@@ -1,0 +1,75 @@
+{% load static %}
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="author" content="Broker">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Power DataMate</title>
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'dav/images/favicon.png' %}">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Template CSS Files -->
+    <link rel="stylesheet" href="{% static 'dav/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dav/css/bootstrap-select.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dav/css/line-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'dav/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dav/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dav/css/jquery.fancybox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dav/css/daterangepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'dav/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dav/css/animated-headline.css' %}">
+    <link rel="stylesheet" href="{% static 'dav/css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'dav/css/flag-icon.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dav/css/style.css' %}">
+
+    <script src="{% static 'dav/js/jquery-3.4.1.min.js' %}"></script>
+
+</head>
+
+<body style="background-image: url({% static 'dav/images/background.jpg' %});background-size:100% 100%;">
+    {% block start %}
+    <br><br><br><br><br><br><br><br><br><br>
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+                    <form class="form-box" method="post">
+                        {% csrf_token %}
+                        <div class="form-title-wrap">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="title">Login</h3>
+                                </div>
+                                <hr>
+
+                                <div>
+                                    <h2>Power-DataMate</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-content">
+                            <p>
+                                <label for="id_username">User Name :</label>
+                                {{form.username}}
+                            </p>
+                            <p>
+                                <label for="id_password">Password :</label>
+                                {{form.password}}
+                            </p>
+                            <hr>
+                            <button style="width: 100%;" type="submit" class="theme-btn theme-btn">Login</button>
+                        </div>
+                    </form><!-- end form-box -->
+                </div><!-- end col-lg-12 -->
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}

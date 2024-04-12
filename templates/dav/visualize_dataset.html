@@ -1,0 +1,30 @@
+{% extends 'dav/base.html' %}
+{% load static %}
+{% block start %}
+
+<br>
+<div class="form-box">
+    <div class="form-title-wrap">
+        <b><h1 class="title" style="font-size:30px;float: left;"><a href="/dav/projects/{{project.id}}">{{project}}</a> : Data Visualization for Denormalized Data File</h1></b>
+        <br>
+    </div>
+</div>
+
+
+{% include "dav/forms/box_form.html" with data=fields title="Data File - Attributes" %}
+
+<div class="row">
+    {% for item in charts %}
+        {% if item.type == "bar" %}
+        {% include "dav/forms/bar_chart_box.html" with chart=item data=item.data|safe title=item.title width=12 %}
+        {% elif item.type == "pie" %}
+        {% include "dav/forms/pie_chart_box.html" with chart=item data=item.data|safe title=item.title width=12 %}
+        {% elif item.type == "line" %}
+        {% include "dav/forms/line_chart_box.html" with chart=item data=item.data|safe title=item.title width=12 %}
+        {% else %}
+        {% include "dav/forms/chart_box.html" with chart=item data=item.data|safe title=item.title width=12 %}
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% endblock %}

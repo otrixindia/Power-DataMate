@@ -1,0 +1,21 @@
+{% if list %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            {% for col in columns %}
+            <th scope="col">{{col}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {{list}}
+        {% for data in list %}
+        <tr>
+            {% for col in columns %}
+            <td>{{data.0}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}

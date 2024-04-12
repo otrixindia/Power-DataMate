@@ -1,0 +1,26 @@
+{% extends 'dav/base.html' %}
+{% load static %}
+{% block start %}
+{% include "dav/forms/post_form.html" with form=file_form title="Django Form" %}
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Data File</th>
+            <th>View</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    {% for item in list %}
+    <tr>
+        <td>{{item.id}}</td>
+        <td>{{item.title}}</td>
+        <td>{{item.file}}</td>
+        <td><a href="/dav/projects/{{item.project_id}}/files/{{item.id}}/fields" class="btn btn-sm btn-outline-primary">Get Attributes</button></td>
+        <td><a href="/dav/projects/{{item.project_id}}/files/{{item.id}}" class="btn btn-sm btn-outline-warning">Edit</button></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

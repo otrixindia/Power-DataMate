@@ -1,0 +1,80 @@
+{% extends 'dav/base.html' %}
+{% load static %}
+{% block start %}
+{%if "/files/0" in request.path %}
+    <div id="post_form">
+        {% include "dav/forms/post_form.html" with form=file_form title="Add New Data File" %}
+    </div>
+{% elif file.id > 0 %}
+    <div id="post_form">
+        {% include "dav/forms/post_form.html" with form=file_form title="Update Data File" %}
+    </div>
+{% endif %}
+
+
+
+{% if form %}
+<div class="row">
+    <div class="col-lg-6 responsive-column">
+        <form class="form-box" method="post">
+            {% csrf_token %}
+            <div class="form-title-wrap">
+                <h3 class="title">Upload DataFile</h3>
+            </div>
+            <div class="form-content">
+                {{form.as_p}}
+                <hr>
+                <button type="submit" class="theme-btn theme-btn-small">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+
+<div class="form-box">
+    <div class="form-title-wrap">
+        <h3 class="title">Data File Attributes</h3>
+    </div>
+
+    <div class="form-content">
+        <div class="form-row">
+            {% if file.id > 0 %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Attribute Id</th>
+                        <th>Title</th>
+                        <th>Data File</th>
+                    </tr>
+                </thead>
+                {% for item in fields %}
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.field}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<div class="form-box">
+    <div class="form-title-wrap">
+        <h3 class="title">Data File Data</h3>
+    </div>
+    <div class="form-content">
+        <div class="form-row">
+            {% if file.id > 0 %}
+            <table class="table table-striped">
+                {{data|safe}}
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

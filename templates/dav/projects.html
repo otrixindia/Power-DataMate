@@ -1,0 +1,69 @@
+{% extends 'dav/base.html' %}
+{% load static %}
+{% block start %}
+{%if "/projects/0" in request.path %}
+    <div id="post_form">
+        {% include "dav/forms/post_form.html" with form=project_form title="Add New Dataset" %}
+    </div>
+{% elif project.id > 0 %}
+    <div id="post_form">
+        {% include "dav/forms/post_form.html" with form=project_form title="Update Dataset" %}
+    </div>
+{% endif %}
+<div class="form-box">
+    <div class="form-title-wrap">
+        <h3 class="title" style="float: left;">{%if project.id > 0 %}Data File{% else %}Dataset{% endif %} List</h3>
+        {% if project.id > 0 %}
+            <a href="/admin/dav/datafile/0" class="btn btn-primary" style="float: right;">Add Data File</a>
+        {% else %}
+            <a href="/admin/dav/dataset/add/" target="_blank" class="btn btn-primary" style="float: right;">Add Dataset</a>
+        {% endif %}
+    </div>
+    <div class="form-content">
+        <div class="form-row">
+            {% if project.id == None %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>View</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                {% for item in list %}
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.title}}</td>
+                    <td><a href="/dav/projects/{{item.id}}" class="btn btn-sm btn-outline-primary">View</button></td>
+                    <td><a href="/dav/generate_erd/{{item.id}}" class="btn btn-sm btn-outline-warning">Generate ERD</button></td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Data File</th>
+                        <th>View</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                {% for item in files %}
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.file}}</td>
+                    <td><a href="/dav/files/{{item.id}}" class="btn btn-sm btn-outline-primary">View</button></td>
+                    <td><a href="/dav/files/{{item.id}}" class="btn btn-sm btn-outline-warning">Edit</button></td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

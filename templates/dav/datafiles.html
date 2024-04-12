@@ -1,0 +1,129 @@
+{% extends 'dav/base.html' %}
+{% load static %}
+{% block start %}
+
+{% if form %}
+<div class="row">
+    <div class="col-lg-12">
+        <form class="form-box" method="post">
+            {% csrf_token %}
+            <div class="form-title-wrap">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h3 class="title">Upload Data File</h3>
+                    </div>
+                </div>
+            </div>
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                {{ form.errors }}
+            </div>
+            {% endif %}
+            <div class="form-content">
+                {{form.project.label}} : {{form.project}}</br>
+                {{form.title.label}} : {{form.title}}</br>
+                {{form.content.label}} : {{form.content}}</br>
+                <hr>
+                <button type="submit" class="theme-btn theme-btn-small">Submit</button>
+            </div>
+        </form><!-- end form-box -->
+    </div><!-- end col-lg-12 -->
+
+</div><!-- end row -->
+<hr>
+{% else %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="form-box">
+            <div class="form-title-wrap">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h3 class="title">Results</h3>
+                        <p class="font-size-14">Showing 1 to {{list.count}} of {{list.count}} entries</p>
+                    </div>
+                    <span>Total DataFile <strong class="color-text">({{list.count}})</strong></span>
+                    <span><a href="/dav/datafile/0" class="theme-btn btn-success theme-btn-small">Add
+                            New</a></span>
+                </div>
+            </div>
+            <div class="form-content">
+                <div class="table-form table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Asset Code</th>
+                                <th scope="col">Asset Type</th>
+                                <th scope="col">Manufacturer</th>
+                                <th scope="col">Serial Number</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Created</th>
+                                <th scope="col">Updated</th>
+                                <th scope="col">Active</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in list %}
+                            <tr>
+                                <th scope="row"><i
+                                        class="la la-{% if item.type == 'Owner' %}building{% else %}hotel{% endif %} mr-1 font-size-18"></i>{{item.id}}
+                                </th>
+                                <td>
+                                    <div class="table-content">
+                                        <h3 class="title">{{item.asset_code}}</h3>
+                                    </div>
+                                </td>
+                                <td>{{item.asset_type}}</td>
+                                <td>{{item.manufacturer}}</td>
+                                <td>{{item.serial_no}}</td>
+                                <td>{{item.description}}</td>
+                                <td>{{item.created}}</td>
+                                <td>{{item.updated}}</td>
+                                <td>{{item.is_active}}</td>
+                                <td>
+                                    <div class="table-content">
+                                        <a href="/dav/datafile/{{item.id}}"
+                                            class="theme-btn theme-btn-small theme-btn-warning">Edit</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!-- end form-box -->
+    </div><!-- end col-lg-12 -->
+</div><!-- end row -->
+<div class="row">
+    <div class="col-lg-12">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link page-link-nav" href="#" aria-label="Previous">
+                        <span aria-hidden="true"><i class="la la-angle-left"></i></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item active"><a class="page-link page-link-nav" href="#">1</a></li>
+                <li class="page-item">
+                    <a class="page-link page-link-nav" href="#">2 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="page-item"><a class="page-link page-link-nav" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link page-link-nav" href="#" aria-label="Next">
+                        <span aria-hidden="true"><i class="la la-angle-right"></i></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div><!-- end col-lg-12 -->
+</div><!-- end row -->
+<div class="border-top mt-5"></div>
+
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends 'dav/base.html' %}
+{% load static %}
+{% block start %}
+
+<br>
+<div class="form-box">
+    <div class="form-title-wrap">
+        <b><h1 class="title" style="font-size:30px;float: left;"><a href="/dav/projects/{{files.0.project.id}}">{{files.0.project}}</a> : ERD (Entity Relationship Diagram)</h1></b>
+        <br>
+    </div>
+</div>
+<div class="form-box">
+    <div class="form-title-wrap">
+        <h3 class="title">Data Files</h3>
+    </div>
+    <div class="form-content">
+        <div class="form-row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Data File Name</th>
+                        <th>Content</th>
+                        <th>View</th>
+                    </tr>
+                </thead>
+                {% for item in files %}
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.content}}</td>
+                    <td><a href="/dav/files/{{item.id}}" class="btn btn-sm btn-outline-primary">Analyze Data File</button></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+<!-- 
+<div class="form-box">
+    <div class="form-title-wrap">
+        <h3 class="title" >Relationship</h3>
+    </div>
+    <div class="form-content">
+        <div class="form-row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Data File</th>
+                        <th>Primary Key</th>
+                        <th>Unique</th>
+                        <th>Pk Reference</th>
+                        <th>Active</th>
+                    </tr>
+                </thead>
+                {% for item in erd_list %}
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.file}}</td>
+                    <td>{{item.is_pk}}</td>
+                    <td>{{item.is_unique}}</td>
+                    <td>{{item.pk_reference}}</td>
+                    <td>{{item.is_active}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div> -->
+
+{% if child_fields %}
+<div class="form-box">
+    <div class="form-title-wrap">
+        <h3 class="title" >ERD (Entity Relationship Diagram)</h3>
+    </div>
+    <div class="form-content row">
+        <div class="col-md-4 mb-4"></div>
+            <div class="form-row">
+            <div class="col-md-4 mb-4">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th style="padding:10px;white-space:nowrap;">{{parent_fields.0.file.title}} - Parent</th>
+                        </tr>
+                    </thead>
+                    {% for item in parent_fields %}
+                    <tr>
+                        <td style="padding:10px;white-space:nowrap;">{{item.title|title}}
+                            {% if item.is_pk %} - Pk{% endif %}
+                            {% if item.pk_reference != None %} - Fk{% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="col-md-8 mb-8">
+                <br>
+                <br>
+                <br>
+                <span style='margin-left:55px;font-size:300px;'>&#8628;</span>
+                <div class="row">
+                    <div class="col-md-3 mb-3"></div>
+                    <div class="col-md-4 mb-4">
+                        <table border="1">
+                            <thead>
+                                <tr>
+                                    <th style="padding:10px;white-space:nowrap;">{{child_fields.0.file.title}} - Child
+                                    </th>
+                                </tr>
+                            </thead>
+                            {% for item in child_fields %}
+                            <tr>
+                                <td style="padding:10px;white-space:nowrap;">{{item.title|title}}
+                                    {% if item.is_pk %} - Pk{% endif %}
+                                    {% if item.pk_reference != None %} - Fk{% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endif %}
+
+{% include "dav/forms/box_form.html" with data=joined_table|safe title="De - Normalized Data : Samples" %}
+
+{% endblock %}

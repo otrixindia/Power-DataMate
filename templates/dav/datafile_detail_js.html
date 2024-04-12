@@ -1,0 +1,32 @@
+{% extends 'dav/base.html' %}
+{% load static %}
+{% block start %}
+<hr>
+<div class="form-box">
+    <div class="form-title-wrap">
+        <b><h1 class="title" style="font-size:30px;float: left;"><a href="/dav/projects/{{file.project.id}}">{{file.project}}</a> : Analysis & Visualizations for <b>{{file.title}}<b></b></h1></b>
+        <br>
+    </div>
+</div>
+
+{% include "dav/forms/box_form.html" with data=fields title="Data File : Attributes" %}
+{% include "dav/forms/box_form.html" with data=desc|safe title="Data File : Statistics" %}
+{% include "dav/forms/box_form.html" with data=data|safe title="Data File : Samples" %}
+{% include "dav/forms/box_form.html" with data=group_summary_count|safe title="Group Data : Count" %}
+{% include "dav/forms/box_form.html" with data=group_summary_meann|safe title="Group Data : Avarage" %}
+
+<div class="row">
+    {% for item in charts %}
+        {% if item.type == "bar" %}
+        {% include "dav/forms/bar_chart_box.html" with chart=item data=item.data|safe title=item.title width=12 %}
+        {% elif item.type == "pie" %}
+        {% include "dav/forms/pie_chart_box.html" with chart=item data=item.data|safe title=item.title width=12 %}
+        {% elif item.type == "line" %}
+        {% include "dav/forms/line_chart_box.html" with chart=item data=item.data|safe title=item.title width=12 %}
+        {% else %}
+        {% include "dav/forms/chart_box.html" with chart=item data=item.data|safe title=item.title width=12 %}
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'dav/base.html' %}
+{% load static %}
+{% block start %}
+
+{% if form %}
+<div class="form-box">
+    <div class="form-title-wrap">
+        <h2 style="font-size: 22px;" class="title"><a href="/dav/projects/{{project.id}}">{{project}}</a> : Database
+            Connection</h2>
+    </div>
+    <form method="post" class="form-content">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-4 responsive-column">{{form.type}}</div>
+            <div class="col-lg-4 responsive-column">{{form.host}}</div>
+            <div class="col-lg-4 responsive-column">{{form.database}}</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-4 responsive-column">{{form.user}}</div>
+            <div class="col-lg-4 responsive-column">{{form.passwd}}</div>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary">Connect Now</a>
+    </form>
+</div>
+{% endif %}
+
+<div class="row">
+    {% if tables %}
+    <div class="col-lg-6 responsive-column">
+        <div class="form-box">
+            <div class="form-title-wrap">
+                <h3 class="title">Databsae - Available Tables</h3>
+            </div>
+            <div class="form-content">
+                <div class="form-row">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Table Name</th>
+                                <th>Select</th>
+                            </tr>
+                        </thead>
+                        {% for item in tables %}
+                        <tr>
+                            <td>{{item.id}}</td>
+                            <td>{{item.table_name}}</td>
+                            <!-- <td>{{item.updated}}</td> -->
+                            <td><a href="/dav/connectdb/{{project.id}}/{{item.table_name}}" target="_blank"
+                                    class="btn btn-sm btn-outline-primary">Select
+                                    Table</button></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if selected.count > 0 %}
+    <div class="col-lg-6 responsive-column">
+        <div class="form-box">
+            <div class="form-title-wrap">
+                <h3 class="title">{{project}} - Selected Tables</h3>
+            </div>
+            <div class="form-content">
+                <div class="form-row">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Data File ID</th>
+                                <th>Name</th>
+                                <th>Content</th>
+                            </tr>
+                        </thead>
+                        {% for item in selected %}
+                        <tr>
+                            <td>{{item.id}}</td>
+                            <td>{{item.title}}</td>
+                            <td>{{item.content}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}

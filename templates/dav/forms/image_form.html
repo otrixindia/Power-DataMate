@@ -1,0 +1,70 @@
+<div class="col-lg-1"></div>
+<div class="col-lg-10">
+    <div class="form-box">
+        <div class="form-title-wrap">
+            <h3 class="title">{{title}}</h3>
+        </div>
+        {% for item in list %}
+        <div class="form-content">
+            <div style="display:block;text-align:center">
+                <img id="id"  src="{{item.image.url}}" alt="Image will be displayed here" width="50%" height="50%" />
+            </div>
+        </div>
+        {% endfor %}
+        <div class="form-content">
+            <label class="label-text text-color-6">Upload Image</label>
+            <input name="images" class="form-control" id="id_image_0" type="file">
+            <div style="display:block;text-align:center">
+                <img id="id_image_show_0"  src="#" alt="Image will be displayed here" width="50%" height="50%" />
+            </div>
+        </div>
+        <div class="form-content">
+            <label class="label-text text-color-6">Upload Image</label>
+            <input name="images" class="form-control" id="id_image_1" type="file">
+            <div style="display:block;text-align:center">
+                <img id="id_image_show_1"  src="#" alt="Image will be displayed here" width="50%" height="50%" />
+            </div>
+        </div>
+        <div class="form-content">
+            <label class="label-text text-color-6">Upload Image</label>
+            <input name="images" class="form-control" id="id_image_2" type="file">
+            <div style="display:block;text-align:center">
+                <img id="id_image_show_2"  src="#" alt="Image will be displayed here" width="50%" height="50%" />
+            </div>
+        </div>
+        <div class="form-content">
+            <label class="label-text text-color-6">Upload Image</label>
+            <input name="images" class="form-control" id="id_image_3" type="file">
+            <div style="display:block;text-align:center">
+                <img id="id_image_show_3"  src="#" alt="Image will be displayed here" width="50%" height="50%" />
+            </div>
+        </div>
+        <div class="form-content">
+            <label class="label-text text-color-6">Upload Image</label>
+            <input name="images" class="form-control" id="id_image_4" type="file">
+            <div style="display:block;text-align:center">
+                <img id="id_image_show_4"  src="#" alt="Image will be displayed here" width="50%" height="50%" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-1"></div>
+
+<script>
+    $("#id_image_0").on("change", function(){
+        document.getElementById('id_image_show_0').src = window.URL.createObjectURL(this.files[0]);
+    });
+    $("#id_image_1").on("change", function(){
+        document.getElementById('id_image_show_1').src = window.URL.createObjectURL(this.files[0]);
+    });
+    $("#id_image_2").on("change", function(){
+        document.getElementById('id_image_show_2').src = window.URL.createObjectURL(this.files[0]);
+    });
+    $("#id_image_3").on("change", function(){
+        document.getElementById('id_image_show_3').src = window.URL.createObjectURL(this.files[0]);
+    });
+    $("#id_image_4").on("change", function(){
+        document.getElementById('id_image_show_4').src = window.URL.createObjectURL(this.files[0]);
+    });
+
+</script>

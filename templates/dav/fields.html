@@ -1,0 +1,24 @@
+{% extends 'dav/base.html' %}
+{% load static %}
+{% block start %}
+
+    <a href="/dav/files/validate/1" class="btn btn-primary">Validate </a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Title</th>
+              <th scope="col">Index</th>
+              <th scope="col">Type</th>
+            </tr>
+          </thead>
+        {% for item in list %}
+        <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.title}}</td>
+            <td>{{item.index}}</td>
+            <td>{{item.type}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

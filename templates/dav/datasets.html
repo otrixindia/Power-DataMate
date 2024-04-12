@@ -1,0 +1,116 @@
+{% extends 'dav/base.html' %}
+{% load static %}
+{% block start %}
+
+<!-- {% include "dav/forms/box_form.html" with data=table|safe title="Datasets" %} -->
+
+<div class="counter-box mt-5 pb-2">
+    <div class="row">
+        <div class="col-lg-3 responsive-column">
+            <div class="counter-item d-flex">
+                <div class="counter-icon flex-shrink-0">
+                    <i class="la la-map"></i>
+                </div>
+                <div class="counter-content">
+                    <span class="counter" data-from="0" data-to="1500" data-refresh-interval="5">1500</span>
+                    <span class="count-symbol">+</span>
+                    <p class="counter__title">Views</p>
+                </div><!-- end counter-content -->
+            </div><!-- end counter-item -->
+        </div><!-- end col-lg-3 -->
+        <div class="col-lg-3 responsive-column">
+            <div class="counter-item d-flex">
+                <div class="counter-icon flex-shrink-0">
+                    <i class="la la-globe"></i>
+                </div>
+                <div class="counter-content">
+                    <span class="counter" data-from="0" data-to="{{list.count}}"
+                        data-refresh-interval="5">{{list.count}}</span>
+                    <p class="counter__title">Datasets</p>
+                </div><!-- end counter-content -->
+            </div><!-- end counter-item -->
+        </div><!-- end col-lg-3 -->
+        <div class="col-lg-3 responsive-column">
+            <div class="counter-item d-flex">
+                <div class="counter-icon flex-shrink-0">
+                    <i class="la la-language"></i>
+                </div>
+                <div class="counter-content">
+                    <span class="counter" data-from="0" data-to="5" data-refresh-interval="5">5</span>
+                    <p class="counter__title">Data Files</p>
+                </div><!-- end counter-content -->
+            </div><!-- end counter-item -->
+        </div><!-- end col-lg-3 -->
+        <div class="col-lg-3 responsive-column">
+            <div class="counter-item d-flex">
+                <div class="counter-icon flex-shrink-0">
+                    <i class="la la-star"></i>
+                </div>
+                <div class="counter-content">
+                    <span class="counter" data-from="0" data-to="15" data-refresh-interval="5">15</span>
+                    <p class="counter__title">Attributes</p>
+                </div><!-- end counter-content -->
+            </div><!-- end counter-item -->
+        </div><!-- end col-lg-3 -->
+    </div><!-- end row -->
+</div>
+<br>
+<hr>
+{% if form %}
+<div class="row">
+    <div class="col-lg-6 responsive-column">
+        <form class="form-box" method="post">
+            {% csrf_token %}
+            <div class="form-title-wrap">
+                <h3 class="title">Datasets</h3>
+            </div>
+            <div class="form-content">
+                {{form.as_p}}
+                <hr>
+                <button type="submit" class="theme-btn theme-btn-small">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% else %}
+<div class="form-box">
+    <div class="form-title-wrap">
+        <a href="/dav/datasets/0" target="_blank" class="btn btn-primary" style="float: right;margin-top: -10px;">Add Dataset</a>
+        <h3 class="title">Datasets</h3>
+    </div>
+    <div class="form-content">
+        <div class="row">
+            {% for item in list %}
+            <a href="/dav/datasets/{{item.id}}">
+                <div class="col-lg-4 responsive-column">
+                    <div class="deal-card">
+                        <div class="deal-title d-flex align-items-center">
+                            <img src="/static/dav/images/airline-img.png" alt="air-line-img">
+                            <h3 class="deal__title">
+                                <a href="/dav/projects/{{item.id}}" class="d-flex align-items-center">
+                                    {{item.title}}
+                                </a>
+                            </h3>
+                        </div>
+                        <p class="deal__meta">{{item.created_on}}</p>
+                        <div class="deal-action-box d-flex align-items-center justify-content-between">
+                            <div class="price-box d-flex align-items-center"><span
+                                    class="price__from mr-1">Id</span><span class="price__num">
+                                    {{item.id}}</span>
+
+                            </div>
+                            <a href="/dav/datasets/{{item.id}}" class="btn-text">Edit</a>
+                            <a href="/dav/projects/{{item.id}}" class="btn-text">View<i
+                                    class="la la-angle-right"></i></a>
+                        </div>
+                    </div><!-- end deal-card -->
+                </div><!-- end col-lg-4 -->
+            </a>
+            {% endfor %}
+
+        </div>
+    </div><!-- end tab-pane -->
+</div><!-- end tab-content -->
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% if form %}
+<form method="post">
+    {% csrf_token %}
+    <div class="form-box">
+        <div class="form-title-wrap">
+            <h3 class="title">{{title}}</h3>
+        </div>
+        <div class="form-content">
+            <div class="form-row">
+                {% for key, value in form.errors.items %}
+                <span>
+                    <label class="label-text text-color-6">{{key}}</label> --> <label
+                        class="label-text text-color-6">{{value}}</label>
+                    </br>
+                </span>
+                {% endfor %}
+
+                {% for item in form %}
+                <!-- {{item.field.widget.input_type}} -->
+                {% if item.field.widget.input_type == "hidden" %}
+                {%else%}
+                <div class="col-md-4 mb-3">
+                    <label class="label-text text-color-6">{{item.label_tag}}</label>
+
+                    {% if item.field.widget.input_type == "checkbox" %}
+                    <div class="form-group d-flex align-items-center">
+                        {% for field in item %}
+                        {{field}}
+                        {% endfor %}
+                    </div>
+                    {% elif item.field.widget.input_type == "radio" %}
+                    <div class="form-group d-flex align-items-center">
+                        {% for field in item %}
+                        {{field}}
+                        {% endfor %}
+                    </div>
+                    {% elif item.field.widget.input_type == "file" %}
+                    {{ item }}
+                    <div class="{{item.field.widget.css}}" style="margin-top: 15px;display: inline-block;">
+                        <img id="{{item.auto_id}}_show" src="#" alt="Image will be displayed here" width="100%"
+                            max-width="100%" max-height="100%" />
+                    </div>
+                    <script>
+                        $("#{{item.auto_id}}").on("change", function () {
+                            document.getElementById('{{item.auto_id}}_show').src = window.URL.createObjectURL(this.files[0]);
+                        });
+                    </script>
+                    {% else %}
+                    {{ item }}
+                    {% endif %}
+                    {% if "Mobile No" in item.label_tag %}
+                    </br>
+                    <button type="button" id="send_otp_btn" class="theme-btn"> Send OTP </button>
+                    </br>
+                    </br>
+                    {% endif %}
+                    {% if "OTP" in item.label_tag %}
+                    </br>
+                    <button type="button" id="verify_otp_btn" class="theme-btn"> Verify OTP </button>
+                    </br>
+                    </br>
+                    {% endif %}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class = "form-row">
+                <div class="col-md-11 mb-11"></div>
+                <div class="col-md-1 mb-1">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</form>
+{% endif %}

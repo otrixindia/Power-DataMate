@@ -1,0 +1,53 @@
+{% extends 'dav/base.html' %}
+{% load static %}
+{% block start %}
+
+<br>
+<div class="form-box">
+    <div class="form-title-wrap">
+        <b><h1 class="title" style="font-size:30px;float: left;"><a target="_blank" href="/dav/projects/{{project.id}}">{{project}}</a> : Data Analysis for Denormalized Data File</h1></b>
+        <br>
+    </div>
+</div>
+<!-- 
+<div class="form-box">
+    <div class="form-title-wrap">
+        <h3 class="title">Data Files</h3>
+    </div>
+    <div class="form-content">
+        <div class="form-row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Data File Name</th>
+                        <th>File Type</th>
+                        <th>Content</th>
+                        <th>No of Attributes</th>
+                        <th>View</th>
+                    </tr>
+                </thead>
+                {% for item in list %}
+                <tr>
+                    <td>{{item.file}}</td>
+                    <td>{{item.file__title}}</td>
+                    <td>{{item.file__type}}</td>
+                    <td>{{item.file__content}}</td>
+                    <td>{{item.total}}</td>
+                    <td><a href="/dav/analyze_files/{{item.file}}" target="_blank"
+                            class="btn btn-sm btn-outline-primary">Analyze
+                            Data File</button></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div> -->
+
+{% include "dav/forms/box_form.html" with data=fields title="Data File - Attributes" %}
+{% include "dav/forms/box_form.html" with data=desc|safe title="Data File - Statistics" %}
+{% include "dav/forms/box_form.html" with data=group_summary_count|safe title="Group Data - Count" %}
+{% include "dav/forms/box_form.html" with data=group_summary_meann|safe title="Group Data - Avarage" %}
+{% include "dav/forms/box_form.html" with data=data|safe title="Data File - Samples" %}
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'dav/base.html' %}
+{% load static %}
+{% block start %}
+<hr>
+{% include "dav/forms/box_form.html" with data=fields title="Data Fileds" %}
+{% include "dav/forms/box_form.html" with data=desc|safe title="Data File Stats" %}
+<!-- {% include "dav/forms/box_form.html" with data=info|safe title="Data File Types" %} -->
+{% include "dav/forms/box_form.html" with data=data|safe title="Data File Data" %}
+
+
+<div class="row">
+    <canvas id="myChart" width="800" height="400"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['label1', 'label2'],
+                datasets: [{
+                    label: "Bite exercises complete per month",
+                    data: ['100', '500'],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</div>
+<div class="row">
+    {% for item in charts %}
+    {% include "dav/forms/image_box.html" with data=item.data|safe title=item.title width=6%}
+    {% endfor %}
+</div>
+
+{% endblock %}

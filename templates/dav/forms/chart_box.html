@@ -1,0 +1,36 @@
+<div class="col-lg-{% if width > 0 %}{{width}}{% else %}12{% endif %} responsive-column">
+    <div class="form-box">
+        <div class="form-title-wrap">
+            <h3 class="title">{{title}}</h3>
+        </div>
+        <div class="form-content overflow-auto">
+            <canvas id="{{chart.id}}" height="400"></canvas>
+            <script>
+                // const ctx = document.getElementById('{{chart.id}}').getContext('2d');
+                new Chart(
+                    document.getElementById('{{chart.id}}').getContext('2d'), {
+                    type: '{{chart.type}}',
+                    data: {
+                        labels: "{{chart.data.labels}}",
+                        datasets: [{
+                            label: "{{chart.title}}",
+                            data: "{{chart.data.values}}",
+                            backgroundColor: ["#e60049", "#0bb4ff", "#50e991", "#e6d800", "#9b19f5", "#ffa300", "#dc0ab4", "#b3d4ff", "#00bfa0", "#fd7f6f", "#7eb0d5", "#b2e061", "#bd7ebe", "#ffb55a", "#ffee65", "#beb9db", "#fdcce5", "#8bd3c7"],
+                            // hoverOffset: 4,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }, 
+                        responsive: true, 
+                        maintainAspectRatio: false,
+                    }
+                });
+            </script>
+        </div>
+    </div>
+</div>
